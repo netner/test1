@@ -1,0 +1,89 @@
+openapi: 3.0.4
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    Описание API
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  version: 1.0.12
+servers:
+  - url: https//localhost/api/v1
+tags:
+  - name: acsc
+    description: Операции контроля доступа
+paths:
+  /registraion:
+    post:
+      tags:
+        - acsc
+      summary: Регистрация.
+      description: Создание нового пользоватея в системе.
+      operationId: registration
+      requestBody:
+        description: Registration
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - first_name
+                - second_name
+                - user_name
+                - password
+              properties:
+                first_name:
+                  type: string
+                  example: "John"
+                second_name:
+                  type: string
+                  example: "Doe"
+                user_name:
+                  type: string
+                  example: "JDoe"
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+      responses:
+        '201':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  first_name:
+                    type: string
+                  second_name:
+                    type: string
+                  user_name:
+                    type: string
+        '400':
+          description: Validation error — invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  first_name:
+                    type: string
+                  second_name:
+                    type: string
+                  user_name:
+                    type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
